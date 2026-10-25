@@ -1,0 +1,25 @@
+[project]
+name = "local-llm-writing-tools"
+version = "1.0.0"
+description = "Private, offline writing assistant for macOS: Raycast + Ollama"
+requires-python = ">=3.9"
+license = "MIT"
+# No runtime dependencies on purpose: the Commands run on a stock python3.
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.pytest.ini_options]
+pythonpath = ["commands"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+src = ["commands"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Raycast's @raycast.argument headers are single-line JSON and can't be wrapped.
+"commands/{rephrase,proofread,translate}.py" = ["E501"]
